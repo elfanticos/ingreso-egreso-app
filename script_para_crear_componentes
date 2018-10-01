@@ -1,0 +1,18 @@
+---LOGIN
+ng g c auth/login --spec=false -is
+---REGISTER
+ng g c auth/register --spec=false -is
+---DASHBOARD
+ng g c dashboard --spec=false -is
+---INGRESO Y EGRESO
+ng g c ingreso-egreso --spec=false -is
+---ESTADISTICA
+ng g c ingreso-egreso/estadistica --spec=false -is
+---DETALLE
+ng g c ingreso-egreso/detalle --spec=false -is
+---SHARED / FOOTER
+ng g c shared/footer --spec=false -is
+---SHARED / NAVBAR
+ng g c shared/navbar --spec=false -is
+---SHARED / SIDEBAR
+ng g c shared/sidebar --spec=false -is
