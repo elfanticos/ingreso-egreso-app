@@ -16,3 +16,5 @@ ng g c shared/footer --spec=false -is
 ng g c shared/navbar --spec=false -is
 ---SHARED / SIDEBAR
 ng g c shared/sidebar --spec=false -is
+---SERVICIOS
+ng g s auth/auth --spec=false
