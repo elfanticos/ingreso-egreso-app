@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(data:DATOS) {
-    console.log(data);
     this._authService.login(data.email,data.password);
   }
 
