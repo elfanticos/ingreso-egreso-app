@@ -14,12 +14,14 @@ import { User } from './user.model';
 import { Appstate } from '../app.reducer';
 /**Acciones */
 import { ActivarLoadingAction, DesactivarLoadingAction } from './../shared/ui.acctions';
-
+import { SetUserAction } from './auth.actions';
+/**RXJS */
+import { Subscription } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
+  private userSubscription :Subscription = new Subscription();
   constructor(
     private _afAuth:AngularFireAuth,
     private _router:Router,
@@ -28,13 +30,29 @@ export class AuthService {
     ) {
      }
 
-  initAutListener() {
+  initAutListener():void {
+    /**Obtener cualquier cambio del usuario */
     this._afAuth.authState.subscribe((fbUSer:firebase.User) => {
+      if (fbUSer) {
+        /**subcribirse cuando el usuario esta en sesión */
+        this.userSubscription = this._afDB.doc(`${fbUSer.uid}/usuario`).valueChanges()
+          .subscribe((usuarioObj:any) => {
+            const newUser = new User(usuarioObj);
+            this._store.dispatch(new SetUserAction(newUser));
+        });
+      } else {
+        /**Desubcribirse si el usario logueado cierra sesión */
+        this.userSubscription.unsubscribe();
+      }
     });
   }
-  crearUsuario(nombre:string, email:string, password:string) {
+
+  crearUsuario(nombre:string, email:string, password:string):void {
+    /**Activar carga */
     this._store.dispatch(new ActivarLoadingAction());
+    /**Crear usuario en database */
     this._afAuth.auth.createUserWithEmailAndPassword(email,password).then(res => {
+      /**Datos de usuario */
       const user:User = {
         uid    : res.user.uid,
         nombre : nombre,
@@ -43,38 +61,45 @@ export class AuthService {
       this._afDB.doc(`${res.user.uid}/usuario`)
         .set(user)
         .then(() => {
+          /**Desactivar carga y redireccionar al dashboard */
           this._router.navigate(['/']);
           this._store.dispatch(new DesactivarLoadingAction());
         })
     }).catch(err => {
+      /**Desactivar carga*/
       this._store.dispatch(new DesactivarLoadingAction());
       Swal('Error crear usuario',  err.message, 'error');
-      console.error(err);
     });
   }
 
-  login(email:string, password:string) {
+  login(email:string, password:string):void {
+    /**Activar carga */
     this._store.dispatch(new ActivarLoadingAction());
+    /**Autentificar en database */
     this._afAuth.auth.signInWithEmailAndPassword(email, password).then(res => {
+      /**Desactivar carga y redireccionar al dashboard */
       this._store.dispatch(new DesactivarLoadingAction());
       this._router.navigate(['/']);
     }).catch(err => {
+      /**Desactivar carga*/
       this._store.dispatch(new DesactivarLoadingAction());
       Swal('Error en el login',  err.message, 'error');
-      console.error(err);
     });
   }
 
-  logout() {
+  logout():void {
+    /**Cerrar sesión y redireccionar al login */
     this._router.navigate(['/login']);
     this._afAuth.auth.signOut();
   }
 
   isAuth() {
+    /**Validar el token del usuario */
     return this._afAuth.authState
       .pipe(
         map( fbUser => {
-          if(fbUser == null) {
+          if(!fbUser) {
+            /**Redireccionar al login si el usuario no existe en sesión */
             this._router.navigate(['/login']);
           }
           return fbUser != null;
