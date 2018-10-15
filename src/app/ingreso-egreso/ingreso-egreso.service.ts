@@ -18,7 +18,7 @@ export class IngresoEgresoService implements OnDestroy {
   constructor(
     private _afBD: AngularFirestore,
     private _authService : AuthService,
-    private _store : Store<Appstate>
+    private _store : Store<Appstate> 
   ) { }
 
   ngOnDestroy(): void {
