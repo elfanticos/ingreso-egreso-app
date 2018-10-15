@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
 })
 export class IngresoEgresoService implements OnDestroy {
   ingresoEgresoListerSubscription: Subscription = new Subscription();
-  ingresoEgresoItemsSubscription: Subscription = new Subscription();
+  ingresoEgresoItemsSubscription: Subscription  = new Subscription();
   constructor(
     private _afBD: AngularFirestore,
     private _authService : AuthService,
