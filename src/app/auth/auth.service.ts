@@ -22,6 +22,7 @@ import { Subscription } from 'rxjs';
 })
 export class AuthService {
   private userSubscription :Subscription = new Subscription();
+  usuario:User;
   constructor(
     private _afAuth:AngularFireAuth,
     private _router:Router,
@@ -39,10 +40,12 @@ export class AuthService {
           .subscribe((usuarioObj:any) => {
             const newUser = new User(usuarioObj);
             this._store.dispatch(new SetUserAction(newUser));
+            this.usuario = usuarioObj;
         });
       } else {
         /**Desubcribirse si el usario logueado cierra sesión */
         this.userSubscription.unsubscribe();
+        this.usuario = null;
       }
     });
   }
@@ -105,5 +108,9 @@ export class AuthService {
           return fbUser != null;
         })
       );
+  }
+
+  getUsuario() {
+    return {...this.usuario};
   }
 }
