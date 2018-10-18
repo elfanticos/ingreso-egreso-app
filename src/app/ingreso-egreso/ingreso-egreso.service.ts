@@ -8,6 +8,8 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { filter, map } from 'rxjs/operators';
 import { SetItemsAction } from './ingreso-egreso.actions';
 import { Subscription } from 'rxjs';
+/**Librerias */
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -59,5 +61,11 @@ export class IngresoEgresoService implements OnDestroy {
     const user = this._authService.getUsuario();
     return this._afBD.doc(`${user.uid}/ingresos-egresos`)
       .collection('items').add({...ingresoEgreso});
+  }
+
+  borrarIngresoEgreso(item:IngresoEgreso) {
+    const user = this._authService.getUsuario();
+    this._afBD.doc(`${user.uid}/ingresos-egresos/items/${item.uid}`).delete();
+    Swal('Eliminado',item.descripcion,'success');
   }
 }

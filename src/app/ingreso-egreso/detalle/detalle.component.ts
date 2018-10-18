@@ -1,3 +1,4 @@
+import { IngresoEgresoService } from './../ingreso-egreso.service';
 import { Subscription } from 'rxjs';
 import { IngresoEgreso } from './../ingreso-egreso.model';
 import { Appstate } from './../../app.reducer';
@@ -13,14 +14,14 @@ export class DetalleComponent implements OnInit, OnDestroy {
   items: IngresoEgreso[];
   subcription : Subscription = new Subscription();
   constructor(
-    private _store:Store<Appstate>
+    private _store:Store<Appstate>,
+    private _ingresoEgresoService : IngresoEgresoService
   ) { 
   }
 
   ngOnInit():void {
     this.subcription = this._store.select('ingresoEgreso').subscribe(ingresoEgreso => {
       this.items = ingresoEgreso.items;
-      console.log(this.items);
     });
   }
 
@@ -28,8 +29,8 @@ export class DetalleComponent implements OnInit, OnDestroy {
     this.subcription.unsubscribe();
   }
 
-  borrarItem( uid:string ):void {
-    console.log(uid);
+  borrarItem( item:IngresoEgreso ):void {
+    this._ingresoEgresoService.borrarIngresoEgreso(item);
   }
 
 }

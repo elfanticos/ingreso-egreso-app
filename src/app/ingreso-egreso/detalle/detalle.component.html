@@ -15,7 +15,7 @@
             </thead>
 
             <tbody>
-              <tr *ngFor="let item of items">
+              <tr *ngFor="let item of items | ordenIngresoEgreso">
                 <td>{{item.descripcion}}</td>
                 <td>{{item.monto | currency}}</td>
                 <td>
@@ -27,7 +27,7 @@
                   </span>
                 </td>
                 <td>
-                  <button class="btn btn-danger" (click)="borrarItem(item.uid);">
+                  <button class="btn btn-danger" (click)="borrarItem(item);">
                     <i class="fa fa-trash"></i>
                     Borrar
                   </button>

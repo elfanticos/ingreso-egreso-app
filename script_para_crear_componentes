@@ -16,6 +16,10 @@ ng g c shared/footer --spec=false -is
 ng g c shared/navbar --spec=false -is
 ---SHARED / SIDEBAR
 ng g c shared/sidebar --spec=false -is
+
 ---SERVICIOS
 ng g s auth/auth --spec=false
 ng g s ingreso-egreso/ingreso-egreso --spec=false
+
+---PIPE
+ng g p ingreso-egreso/orden-ingreso-egreso --spec=false
