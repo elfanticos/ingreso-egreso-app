@@ -11,6 +11,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+/**Librerias */
+import { ChartsModule } from 'ng2-charts';
 /**Componentes */
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -44,6 +46,7 @@ import { OrdenIngresoEgresoPipe } from './ingreso-egreso/orden-ingreso-egreso.pi
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    ChartsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
