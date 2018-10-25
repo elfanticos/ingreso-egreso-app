@@ -6,7 +6,7 @@ import { IngresoEgreso } from './ingreso-egreso.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable, OnDestroy } from '@angular/core';
 import { filter, map } from 'rxjs/operators';
-import { SetItemsAction } from './ingreso-egreso.actions';
+import { SetItemsAction, UnSetItemsAction } from './ingreso-egreso.actions';
 import { Subscription } from 'rxjs';
 /**Librerias */
 import Swal from 'sweetalert2';
@@ -31,6 +31,7 @@ export class IngresoEgresoService implements OnDestroy {
   cancelarSubscripion():void {
     this.ingresoEgresoItemsSubscription.unsubscribe();
     this.ingresoEgresoListerSubscription.unsubscribe();
+    this._store.dispatch(new UnSetItemsAction());
   }
 
   initIngresoEgresoListener():void {

@@ -14,7 +14,7 @@ import { User } from './user.model';
 import { Appstate } from '../app.reducer';
 /**Acciones */
 import { ActivarLoadingAction, DesactivarLoadingAction } from './../shared/ui.acctions';
-import { SetUserAction } from './auth.actions';
+import { SetUserAction, UnsetUserAction } from './auth.actions';
 /**RXJS */
 import { Subscription } from 'rxjs';
 @Injectable({
@@ -94,6 +94,7 @@ export class AuthService {
     /**Cerrar sesión y redireccionar al login */
     this._router.navigate(['/login']);
     this._afAuth.auth.signOut();
+    this._store.dispatch(new UnsetUserAction())
   }
 
   isAuth() {
