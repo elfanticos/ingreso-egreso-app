@@ -10,7 +10,7 @@
             <div class="float-right">
               <p class="mb-0 text-right">Ingresos</p>
               <div class="fluid-container">
-                <h3 class="font-weight-medium text-right mb-0">{{ingresos | currency: 'S/' : true }}</h3>
+                <h3 class="font-weight-medium text-right mb-0">{{ingresos | currency}}</h3>
               </div>
             </div>
           </div>
@@ -32,7 +32,7 @@
               <div class="float-right">
                 <p class="mb-0 text-right">Egresos</p>
                 <div class="fluid-container">
-                  <h3 class="font-weight-medium text-right mb-0">{{egresos | currency: 'S/' : true }}</h3>
+                  <h3 class="font-weight-medium text-right mb-0">{{egresos | currency}}</h3>
                 </div>
               </div>
             </div>
@@ -62,7 +62,7 @@
                       'text-danger': ingresos - egresos < 0
                     }"
                         class="font-weight-medium text-right mb-0">
-                      {{ ingresos - egresos | currency: 'S/' : true }}
+                      {{ ingresos - egresos | currency}}
                     </h3>
                   </div>
                 </div>

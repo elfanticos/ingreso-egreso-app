@@ -23,3 +23,8 @@ ng g s ingreso-egreso/ingreso-egreso --spec=false
 
 ---PIPE
 ng g p ingreso-egreso/orden-ingreso-egreso --spec=false
+
+----MODULOS
+ng g m shared --spec=false
+ng g m ingreso-egreso --spec=false
+ng g m dashboardRouting --spec=false

@@ -1,9 +1,14 @@
+import { Appstate } from 'src/app/app.reducer';
 import { IngresoEgreso }      from './ingreso-egreso.model';
 import * as fromIngresoEgreso from './ingreso-egreso.actions';
 
 export interface IngresoEgresoState {
     items : IngresoEgreso[]
 }
+
+export interface Appstate extends Appstate {
+    ingresoEgreso : IngresoEgresoState; 
+};
 
 const estadoInicial:IngresoEgresoState = {
     items : []
